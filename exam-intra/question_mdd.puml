@@ -1,0 +1,25 @@
+ @startuml
+ skinparam style strictuml
+' skinparam DefaultFontName Source Code Pro
+ skinparam DefaultFontSize 16
+ skinparam ArrowThickness 2.2
+ skinparam ArrowColor #gray
+ hide empty members
+
+ title **Question 21**  (MDD)\n<I>Exam Intra</i> | 19 Juin 2020\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+ class "Ordinateur" as host {
+   nom: String
+   capacité: double
+ }
+
+ class "Utilisateur" as usr {
+    prenom: String
+    nom: String
+    dateNaissance: Date
+ }
+
+host "1..*" -- "1" usr: étudie avec <
+
+
+ @enduml

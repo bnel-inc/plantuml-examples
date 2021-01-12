@@ -1,0 +1,35 @@
+@startuml
+skinparam style strictuml
+skinparam sequence {
+    MessageAlign center
+}
+title Réserver un livre de la bibliothèque  <I>Exercice DSS</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+actor ":Membre" as mb
+participant ":Bibliothèque" as bt
+participant ":InventaireLivre" as inv
+participant ":AuthBibliothèque" as auth_bt
+
+loop Tant que le livre n'est pas trouvé
+mb -> bt : rechercheLivre(descStr: String)
+bt -> inv : rechercheLivre(bookQuery:String)
+bt <-- inv: livresOrdonnee:List Livre
+alt Livre trouvé
+    mb <- bt: Diffuser List Livres Recherché
+else Livre n'a pas été trouvé (Requête sans retour)
+    mb <- bt: diffuserLivreIntrouvable(): String
+    mb -> bt : recherche(descLivre: String)
+else Livre n'a pas été trouvé (Rupture de stock)
+    mb <- bt: diffuserLivreRuptureStock(): String
+    mb -> bt : recherche(descLivre: String)
+end
+end
+mb -> bt: choisirLivre(livre:Livre)
+mb <- bt: afficherDetailsLivre()
+mb -> bt: reserverLivreDispo(livre:Livre)
+mb <- bt: authentificationRequis()
+mb -> bt: authentifierMembre(nom:String,mdp:String)
+bt -> auth_bt: rechercheMembreBib(nom:String,mdp:String)
+bt <-- auth_bt:identifiant:MembreBib
+mb <- bt: reservationConfirmer(livre:Livre, membreBib:MembreBib)
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+skinparam style strictuml
+skinparam sequence {
+    MessageAlign center
+}
+title Ouvrir Caisse  <I>Exercice RDCU</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+participant ":Registre" as rg
+participant "mp:MisePlateau" as mp
+participant ":Magasin" as mg
+participant "cs:Caissier" as cs
+participant ":Map<String, Caissier>" as mapCs
+
+-> rg : authentifier(identifiant : String,\n mdp : String)
+note right:**Contrôleur** toujours le même une fois choisi
+activate rg
+rg -> mg: cs: getCaissier(identifiant : String)
+note right:**Expert** le magasin emploie tous les caissiers
+activate mg
+mg -> mapCs: cs: rechercheCaissier\n(identifiant : String, \nmdp : String)
+deactivate mg
+activate mapCs
+deactivate mapCs
+rg -> cs: valid: mdpValid(mdp: String)
+note right: **Expert** le caissier\n tient son mot de passe
+activate cs
+deactivate cs
+alt valid
+rg <-- mg:  authentification avec\n**succès**
+rg -> mp: setCaissier(cs)
+note right : **Expert** mutateur d'attributs
+activate mp
+deactivate mp
+rg -> rg: setCaissier(cs)
+note right: **Expert** mutateur d'attributs
+else !valid
+rg <-- mg:  **MessageErreure:** \n"Identification invalid"
+end alt
+
+deactivate mg
+deactivate rg
+@enduml

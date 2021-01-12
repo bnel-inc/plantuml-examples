@@ -1,0 +1,25 @@
+@startuml
+class ":OrderEntry\nWindow" as o_entry_window
+class ":Order" as o{
+__
++prepare()
+}
+class "MacallanLine\n:OrderLine" as o_line{
++prepare()
+}
+class "MacallanStock\n:StockItem" as s_item{
+-needsReorder: boolean
+__
++check():boolean
++remove()
++needToReorder():boolean
+}
+class ":ReorderItem" as r_item
+class ":DeliveryItem" as d_item
+
+o_entry_window -> o
+o *--> "*" o_line
+o_line --> s_item
+s_item ..> r_item: "«new»"
+o_line ..> d_item: "«new»"
+@enduml

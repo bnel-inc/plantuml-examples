@@ -1,0 +1,38 @@
+@startuml
+skinparam style strictuml
+
+participant ":OrderEntry\nWindow" as o_entry_window
+participant ":Order" as o
+participant "MacallanLine\n:OrderLine[i]" as o_line
+participant "MacallanStock\n:StockItem" as s_item
+participant ":ReorderItem" as r_item
+participant ":DeliveryItem" as d_item
+
+o_entry_window -> o : prepare()
+activate o
+loop for all order lines
+o -> o_line: prepare()
+activate o_line
+o_line -> s_item: check()
+activate s_item
+o_line <-- s_item: hasStock: bool
+deactivate s_item
+alt hasStock
+o_line -> s_item: remove()
+activate s_item
+
+s_item -> s_item: needsReorder = needToReorder()
+activate s_item
+deactivate s_item
+alt needsReorder
+create r_item
+s_item --> r_item : new
+end
+deactivate s_item
+deactivate s_item
+deactivate s_item
+create d_item
+o_line --> d_item : new
+end
+end
+@enduml

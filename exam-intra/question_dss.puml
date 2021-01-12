@@ -1,0 +1,27 @@
+@startuml
+skinparam style strictuml
+skinparam DefaultFontSize 16
+skinparam sequence {
+    MessageAlign center
+}
+ title **Question 3**  (DSS)\n<I>Exam Intra</i> | 19 Juin 2020\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+actor ":Passager" as pass
+participant ":System" as sys
+
+pass -> sys : arriverTourniquet()
+pass -> sys : lectureCarte(identifiant: CarteOpus)
+pass <-- sys: afficher points restant \net tourniquet débloqué
+'alt fonds suffisant
+'pass <-- sys:
+'else fonds insuffisant
+'pass <-- sys: Veuillez ajouter des fonds
+'end
+
+
+'loop Tant que le livre n'est pas trouvé
+'alt Livre trouvé
+'else Livre n'a pas été trouvé (Rupture de stock)
+'end
+'end
+@enduml

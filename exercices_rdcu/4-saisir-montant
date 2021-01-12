@@ -1,0 +1,11 @@
+@startuml
+skinparam style strictuml
+
+participant ":Registre" as rg
+participant "mp:MisePlateau" as mp
+
+[->rg:saisirMontant(montant : Monnaie)
+note right: **Contrôleur** idem qu'au début
+rg->mp: mp.setMontant(montant)
+note right: **Expert** registre connait MisePlateau\n alors muttateur d'attribut
+@enduml

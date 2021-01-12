@@ -1,0 +1,50 @@
+@startuml
+skinparam style strictuml
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 16
+skinparam DefaultFontStyle bold
+skinparam ArrowThickness 2.2
+skinparam ArrowColor #gray
+hide empty members
+
+title Réserver un livre de la bibliothèque  \n<I>Exercice MDD (classes, attributs, associations)</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+class "Membre" as mb {
+  nom : String
+}
+
+class "Bibliothèque" as bib {
+
+}
+
+class "Exemplaire" as exemp {
+    code: int
+    disponible: boolean
+
+}
+
+class "Reservation" as rsv {
+    noConfirmation: int
+}
+
+class "Livre" as livre {
+    ISBN: String
+    auteur: String
+    titre: String
+    maisonEdition: String
+    numéroEdition: int
+    année: int
+}
+
+class "Catalogue" as catalog {
+
+}
+
+bib "1" *-- "*" mb : Contiens >
+mb "0" *-- "*" rsv: Perform >
+bib "0" *-- "*" catalog: Appartiens >
+catalog "0" *-- "*" livre: Contiens
+(catalog, livre) .. exemp
+rsv "1" *-- "1..*" livre : Définit par >
+
+@enduml

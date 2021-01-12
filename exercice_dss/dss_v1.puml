@@ -1,0 +1,28 @@
+@startuml
+skinparam style strictuml
+skinparam sequence {
+    MessageAlign center
+}
+title Réserver un livre de la bibliothèque  <I>Exercice DSS</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+actor ":Membre" as mb
+[-> Bibliothèque : recherche(descLivre: String)
+activate Bibliothèque
+Bibliothèque -> Inventaire : rechercheLivre(bookQuery:String)
+Bibliothèque <-- Inventaire: livresOrdonnee:List Livre
+activate Something
+mb <- Bibliothèque: Diffuser List Livres Recherché
+
+create Other
+Bibliothèque --> Other : new
+
+note right
+You can also put
+notes on several
+lines.
+end note
+Bibliothèque --> Membre : ok
+deactivate Bibliothèque
+[<-- Membre : ok
+deactivate Bibliothèque
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+skinparam style strictuml
+
+participant rg as ":Register"
+participant red_proxy as "accounting:Accounting\nRedirection\nProxy"
+participant adapter as "externalAccounting:SAP\nAccounting\nAdapter"
+participant local as "localAccounting:Local\nAccounting"
+
+[->rg:makePayment(...)
+rg->rg:completeSaleHandling(...)
+rg -> red_proxy: postSale(currentSale)
+
+
+@enduml

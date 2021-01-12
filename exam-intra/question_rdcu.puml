@@ -1,0 +1,15 @@
+@startuml
+skinparam style strictuml
+skinparam sequence {
+    MessageAlign center
+}
+title Ouvrir Caisse  <I>Exercice RDCU</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+participant ":Registre" as rg
+participant "mp:MisePlateau" as mp
+
+[-> rg : démarrerOuvrirCaisse()
+note right: **Contrôleur** parce que Registre est un equipement
+rg -> mp **: mp = create()
+note right of rg : **Créateur** fais que Registre agrège MisePlateau
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+skinparam style strictuml
+
+participant ":Registre" as rg
+participant "mp:MisePlateau" as mp
+participant ":GrandLivre" as gl
+
+[->rg:fermerTiroir\n(montant : Monnaie)
+note right: **Contrôleur** idem qu'au début
+rg -> mp: mp.setDateHeure(now)s
+note right: **Expert** mutateur d'attributs
+mp -> gl: debutDeSession(this)
+note right: **Expert** MisePlateau enregistre \nses info dans GrandLivre
+rg -> mp: mp.setRegistre(this)
+note right: **Expert** mutateur d'attributs
+@enduml

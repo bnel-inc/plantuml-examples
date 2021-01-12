@@ -1,0 +1,22 @@
+@startuml
+skinparam style strictuml
+skinparam sequence {
+    MessageAlign center
+}
+title Ouvrir Caisse  <I>Exercice RDCU</i>\nLOG210-01 C. Fuhrman\n Vincent Audette
+
+participant ":Registre" as rg
+participant ":Magasin" as mg
+participant ":Map<String,\n PlateauBillets>" as mapPb
+participant "mp:MisePlateau" as mp
+
+
+-> rg : poserPlateau\n(identifiant : String)
+note right: **Contrôleur** idem qu'au début
+rg -> mg: getPlateau\n(identifiant: String)
+note right: **Expert** Magasin \nconnait les PlateauBillets
+mg -> mapPb: idPlateau: getPlateau\n(identifiant: String)
+rg -> mp: mp.setPlateau(idPlateau)
+note right: **Expert** MisePlateau est \ncapturée dans Registre
+rg -> rg: mp.setPlateau(idPlateau)
+@enduml
